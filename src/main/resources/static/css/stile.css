@@ -1,0 +1,256 @@
+body { 
+    font-family: cursive;
+    color:black;
+    font-size: 15px;
+    background-color:white;
+    margin: 0 auto;
+}
+
+a { 
+	text-decoration: none; 
+  	color: darkgrey;
+  	float:center;
+}
+
+a:hover { 
+	text-decoration: underline; 
+}
+
+label {
+	width: 8em;
+	display: inline-block;
+}
+
+header {
+  background-color:limegreen;
+  height: 30px;
+  padding: 0.2em;
+  
+}
+
+header a{ 
+	  text-decoration: none; 
+    color: black;
+    font-size: 20px;
+    display:inline;
+    float:right;
+}
+
+.home{
+  float:left;
+  color:black;
+  margin-right:20px;
+} 
+
+
+.search-form{
+  position:relative;
+  display:inline-block;
+  left:70%;
+  bottom:9em;
+}
+
+.search-label p {
+  text-align:center;
+  margin-bottom:1px;
+  white-space:nowrap;
+}
+
+.search-button {
+  position:relative;
+  color:transparent;
+  background-color:transparent;
+  width: 24px; 
+  height: 24px; 
+  background-image:url("https://cdn-icons-png.flaticon.com/512/622/622669.png"); 
+  background-size: cover; 
+  border: none; 
+  cursor: pointer;
+  right:-5px;
+  top:7px;
+}
+
+.logo{
+  display:flex;
+  left:40%;
+  bottom:5px;
+  justify-content: center;
+  margin-top: -30px;
+
+}
+
+.boxricerca{
+  width:13em;
+  height:0.8em;
+}
+
+
+
+h1{
+  position:relative;
+  top:10%;
+  font-size: 40px;
+  text-align:center;
+}
+
+
+input{
+  font-size: 30px;
+}
+
+
+.error-message {
+  	color: red;
+  	font-style: italic;
+}
+
+.descrizione{
+  width:30em;
+  height:10em;
+  font-size:15px;
+}
+
+.descrizioneContainer p{
+position:relative;
+  bottom:3.5em;
+    
+}
+
+
+.boxRecensioni{
+  position:relative;
+  left:70%;
+  bottom:250px;
+  width:30em;
+  height:40em;
+
+}
+
+.boxRecensioni .recensione{
+  position:relative;
+  width:100%;
+  height:20%;
+  bottom:100px;
+border:solid;
+  }
+
+.recensione .conferma{
+  position:absolute;
+  bottom:0px;
+  right:0px;
+  
+}
+
+.recensioni .conferma{
+  position:absolute;
+  bottom:0px;
+  right:0px;
+  
+}
+
+.recensioni #titolo{
+font-weight:bold;
+  
+}
+
+.recensioni .testo{
+	position: absolute;
+  	margin: 2px;
+}
+
+.recensione #titolo{
+font-weight:bold;
+  
+}
+
+.recensione .testo{
+	position: absolute;
+  	margin: 2px;
+}
+
+
+
+#flex-container {
+  display: flex;
+  align-items: flex-start;
+  height: 400px;
+}
+
+.flex-item {
+  background-color:black;
+  height:70px;
+  width:100px;
+  margin:10px; 
+  color:white;
+}
+
+
+
+div.col {
+  width: calc(50% - 10px);
+}
+
+
+
+
+
+.selezionaCategoria{
+  position:relative;
+  left:60%;
+  bottom:5em;
+  font-size:20px;
+}
+
+.categoriaTesto{
+position:relative;
+  left:60%;
+  bottom:4.5em;
+  display:inline-block;
+}
+
+.prenotazione{
+  position:relative;
+  top:15px;
+  border:solid;
+  margin-top:50px;
+}
+
+.prenotazione span{
+  white-space:nowrap;
+  margin-right: 50px;
+}
+
+
+.eliminaPrenotazione{
+  color:red;
+  float:right;
+  margin-right:20px;
+}
+.recensioni {
+  border:solid;
+}
+.recensioniH2{
+	margin-top: 5%;	
+}
+
+ul {
+	list-style-type: none;
+}
+
+.index {
+	display: flex;
+  align-items: flex-start;
+  justify-content: space-around;
+}
+
+#flex-container-utente {
+  display: flex;
+  align-items: flex-start;
+  height: 200px;
+  width: 50%;
+  justify-content: space-around;
+  background-color: #f2f2f2;
+border-radius: 10px;
+}
+
+
