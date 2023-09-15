@@ -1,8 +1,10 @@
 package it.uniroma3.siw.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 
 
@@ -16,17 +18,17 @@ public class Prodotto {
 	@NotBlank
 	private String nome;
 
-	@NotBlank
+	@NotNull
 	private int prezzo;
 	
 	@NotBlank
 	private String descrizione;
 
 	@ManyToMany
-	private List<Fornitore> fornitori;
+	private List<Fornitore> fornitori = new ArrayList<>();
 	
 	@OneToMany(mappedBy = "prodotto")
-	private List<Commento> commenti;
+	private List<Commento> commenti = new ArrayList<>();
 
 	public Long getId() {
 		return id;

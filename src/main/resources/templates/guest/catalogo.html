@@ -1,0 +1,62 @@
+
+<html>
+	
+	<link rel="icon" type="image/png" href="images/IconSP.png"/>
+
+<head>
+	<title>
+		SiwProducts - Homepage
+	</title>
+	<link rel="stylesheet" href="/css/stile.css" />
+</head>
+
+<body>
+	<header>
+    <div style="float:left"><a href="/">Home</a></div>
+    <div th:if="${#request.userPrincipal}">
+    		<a href="/logout">Logout</a>
+	</div>
+
+	<div th:unless="${#request.userPrincipal}">
+			<a href="/login">Login</a>
+	</div>
+	</header>
+
+	<img class="logoCatalogo" src="/images/SiwPLogo.png" width="20%" />
+	
+	<div class="utente" th:if="${#request.userPrincipal}">
+		<div th:text="'Bentornato ' + ${#request.userPrincipal.principal.username}"> </div>
+    		<a href="/authenticated/userDetails"></a></div>
+    		
+    		
+    		 <form th:action="@{/guest/cercaProdotti}" method="post" class="search-form">
+    <label for="searchInput" class="search-label"> <p> Ricerca prodotti per nome </p> </label>
+  <div class="search-bar">
+    <input type="text" th:value="${nome}" name="nome" id="searchInput" class="boxricerca" />
+    <input type="submit" class="search-button"/>
+  </div>
+</form>
+	
+    <div class="boxFornitore">
+		
+		<div th:class="${0 == idFornitore} ? 'fornitoreSelezionato' : 'dettagliFornitore'">
+			<a th:href="@{'/guest/catalogo/' + '0'}">Tutti i fornitori</a>
+        </div>
+        
+    <div th:each="fornitore : ${fornitori}" 
+         th:id="${fornitore.id}">
+        
+        <div th:class="${fornitore.id == idFornitore} ? 'fornitoreSelezionato' : 'dettagliFornitore'">
+			<a th:text="${fornitore.nome}" th:href="@{'/guest/catalogo/' + ${fornitore.id}}"></a>
+        </div>
+      
+    </div>
+</div>   
+    
+      <div class="boxProdotto">
+      
+    </div> 
+    
+</body> 
+
+</html>

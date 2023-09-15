@@ -69,4 +69,22 @@ public class ProdottoService {
 		return this.prodottoRepository.findByFornitori(this.fornitoreService.findFornitoreById(idFornitore));
 	}
 
+	@Transactional
+	public void addFornitore(Prodotto prodotto, Fornitore fornitore) {
+		prodotto.getFornitori().add(fornitore);
+		fornitore.getProdotti().add(prodotto);
+		this.fornitoreService.saveFornitore(fornitore);
+		this.saveProdotto(prodotto);
+		
+	}
+
+	@Transactional
+	public void rmvFornitore(Prodotto prodotto, Fornitore fornitore) {
+		prodotto.getFornitori().remove(fornitore);
+		fornitore.getProdotti().remove(prodotto);
+		this.fornitoreService.saveFornitore(fornitore);
+		this.saveProdotto(prodotto);
+		
+	}
+
 }

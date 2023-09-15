@@ -1,6 +1,7 @@
 package it.uniroma3.siw.service;
 
 
+import java.util.List;
 import java.util.Set;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +44,11 @@ public class FornitoreService {
 		}
 		
 
+	}
+	
+	@Transactional
+	public List<Fornitore> getFornitoriDaAggiungere(Prodotto prodotto){
+		return this.fornitoreRepository.findAllByProdottiNotContaining(prodotto);
 	}
 
 

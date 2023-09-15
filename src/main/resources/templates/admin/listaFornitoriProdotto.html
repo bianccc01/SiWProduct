@@ -1,0 +1,60 @@
+
+<html>
+	
+	<link rel="icon" type="image/png" href="images/IconSP.png"/>
+
+<head>
+	<title>
+		SiwProducts - Homepage
+	</title>
+	<link rel="stylesheet" href="/css/stile.css" />
+</head>
+
+<body>
+	<header>
+    <div style="float:left"><a href="/">Home</a></div>
+    <div th:if="${#request.userPrincipal}">
+    		<a href="/logout">Logout</a>
+	</div>
+
+	<div th:unless="${#request.userPrincipal}">
+			<a href="/login">Login</a>
+	</div>
+	</header>
+
+	<div class="logo"><img src="/images/SiwPLogo.png" width="20%" /></div>
+	
+	<h1>Sistema di gestione catalogo prodotti</h1>
+
+
+
+<div>
+		Fornitori che si possono aggiungere:
+		
+		<ul>
+			<li th:each="f : ${fornitori}">
+				<a th:text="${f.nome}" th:href="@{'/admin/addFornitoreToProdotto' + '/' + ${prodotto.id} + '/' + ${f.id}}"> </a>
+			</li>
+		</ul>
+		
+		</div>
+		
+		
+		<div>
+		Fornitori aggiunti:
+		
+		<ul>
+			<li th:each="f : ${prodotto.fornitori}">
+				<span th:text="${f.nome}"> </span>
+				<a th:href="@{'/admin/rmvFornitoreToProdotto' + '/' + ${prodotto.id} + '/' + ${f.id}}"> Rimuovi  </a>
+			</li>
+		</ul>
+		
+		
+		</div>
+		
+		
+		<div><a href="/admin/gestioneCatalogo">Fine</a></div>
+		
+</body>		
+		</html>

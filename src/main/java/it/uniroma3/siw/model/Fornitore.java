@@ -8,7 +8,8 @@ import javax.validation.constraints.NotBlank;
 public class Fornitore {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "my_entity_seq")
+    @SequenceGenerator(name = "my_entity_seq", sequenceName = "my_entity_sequence", initialValue = 10)
 	private Long id;
 
 	@NotBlank

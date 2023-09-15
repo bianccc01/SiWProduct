@@ -9,11 +9,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import it.uniroma3.siw.model.Fornitore;
 import it.uniroma3.siw.service.FornitoreService;
+import it.uniroma3.siw.service.ProdottoService;
 @Controller
 public class FornitoreController {
 
 	@Autowired 
 	private FornitoreService fornitoreService;
+	
+	@Autowired
+	private ProdottoService prodottoService;
 
 
 	@GetMapping("/admin/formNewFornitore")
@@ -22,11 +26,12 @@ public class FornitoreController {
 		return "admin/formNewFornitore.html";
 	}
 
-	@PostMapping("/authenticated/newFornitore")
+	@PostMapping("/admin/newFornitore")
 	public String newFornitore(@ModelAttribute("fornitore") Fornitore fornitore, Model model){
 		this.fornitoreService.saveFornitore(fornitore);
 		model.addAttribute("fornitori", this.fornitoreService.allFornitori());
-		return "guest/fornitori.html";
+		model.addAttribute("prodotti", this.prodottoService.allProdotti());
+		return "admin/gestioneCatalogo.html";
 	}
 
 

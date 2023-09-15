@@ -35,7 +35,7 @@ public class AuthenticationController {
 	public String showLoginForm (Model model) {
 		return "guest/formLogin";
 	}
-
+	
 	@GetMapping(value = "/") 
 	public String index(Model model) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -53,6 +53,7 @@ public class AuthenticationController {
         
 		return "guest/index.html";
 	}
+
 		
     @GetMapping(value = "/success")
     public String defaultAfterLogin(Model model) {
