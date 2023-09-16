@@ -23,6 +23,9 @@ public class Prodotto {
 	
 	@NotBlank
 	private String descrizione;
+	
+	@OneToOne
+	private Image image;
 
 	@ManyToMany
 	private List<Fornitore> fornitori = new ArrayList<>();
@@ -85,6 +88,22 @@ public class Prodotto {
 	public void setCommenti(List<Commento> commenti) {
 		this.commenti = commenti;
 	}
+
+	public Image getImage() {
+		return this.image;
+	}
+	
+	public String getDataImage() {
+		if(image.getDataImage().isEmpty())
+			return null;
+		else return this.image.getBase64Image();
+	}
+
+	public void setImage(Image image) {
+		this.image = image;
+	}
+	
+	
 	
 	
 	

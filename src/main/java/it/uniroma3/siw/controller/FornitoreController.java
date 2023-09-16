@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import it.uniroma3.siw.model.Fornitore;
+import it.uniroma3.siw.model.Prodotto;
 import it.uniroma3.siw.service.FornitoreService;
 import it.uniroma3.siw.service.ProdottoService;
 @Controller
@@ -41,6 +42,15 @@ public class FornitoreController {
 		this.fornitoreService.removeFornitore(fornitore);
 		return "guest/fornitori.html";
 		
+	}
+	
+	
+	@GetMapping("/admin/listafornitori/{idProdotto}")
+	public String listaFornitori(@PathVariable("idProdotto") Long idProdotto, Model model) {
+		Prodotto prodotto = this.prodottoService.findProdottoeById(idProdotto);
+		model.addAttribute("fornitori",this.fornitoreService.getFornitoriDaAggiungere(prodotto));
+		model.addAttribute("idProdotto",idProdotto);
+		return "admin/listaFornitoriProdotto.html";
 	}
 
 

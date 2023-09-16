@@ -22,7 +22,7 @@
 			<a href="/login">Login</a>
 		</div>
 </header>
-	<div class="logo"><img src="/images/SiwPLogo.png" width="20%" /></div>
+	<div class="logo"><img src="/images/SiwPLogo.png"/></div>
 
 	<form class="container" th:action="@{/register}" method="POST" enctype="multipart/form-data">
 		<h1 class="log1">Registrazione nuovo utente</h1>
@@ -65,7 +65,7 @@
 		</div>
 		<div>
 			<label> </label>
-			<span><input type="file" th:name="file" /></span>
+			<span><input class="tastoAddImage" type="file" th:name="file" /></span>
 			
 		</div>
 		<div>

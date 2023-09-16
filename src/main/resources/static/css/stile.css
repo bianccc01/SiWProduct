@@ -24,8 +24,14 @@ label {
 header {
   background-color:limegreen;
   height: 30px;
-  padding: 0.2em;
+  padding: 0.5em;
   
+}
+
+header span{
+	position:relative;
+	left:81em;
+	font-size: 20px;
 }
 
 header a{ 
@@ -46,14 +52,15 @@ header a{
 .search-form{
   position:absolute;
   display:inline-block;
-  left:40%;
-  bottom:65%;
+  left:50%;
+  bottom:70%;
 }
 
 .search-label p {
   text-align:center;
   margin-bottom:1px;
   white-space:nowrap;
+  font-size:25px;
 }
 
 
@@ -79,21 +86,10 @@ header a{
 
 
 .logo{
-position:absolute;
+	position:absolute;
   display:flex;
-	margin:top;
   justify-content: center;
-  margin-top: -30px;
-
-}
-
-.logoCatalogo{
-position:absolute;
-  display:flex;
-	margin:top;
-  margin:left;
-  justify-content: center;
-  margin-top: -30px;
+  left:5%;
 
 }
 
@@ -102,7 +98,6 @@ position:absolute;
 
 h1{
   position:relative;
-  bottom:10%;
   font-size: 40px;
   text-align:center;
 }
@@ -197,7 +192,7 @@ border:solid;
   left:0em;
   top:240px;
   border:solid;
-  width:60em;
+  width:90em;
   height:100vh;
   float:left;
 }
@@ -243,6 +238,7 @@ border:solid;
 .boxIndex{
   position:relative;
   margin:0 auto;
+	top:100px;
   background-color:lightgrey;
   width:60%;
   height:30%;
@@ -268,6 +264,164 @@ border:solid;
         
   .list {
     width: 45%;
+  }
+
+.log div {
+  position:relative;
+	right:700px;
+  text-align:center;
+  margin-right: 20%;
+  color:black;
+  padding: 6px;
 }
+
+.log button{
+	padding:5px;
+	margin-left: 10%;
+}
+
+.tastoAddImage{
+	position:relative;
+	left:70px;
+}
+
+.log a{
+	padding:5px;
+	margin-left: 10%;
+}
+
+.log input{
+	padding:5px;
+	margin-left: 10%;
+}
+
+.log1{
+  position:relative;
+	bottom:120px;
+  text-align:center;
+  margin-left: 15em;
+  color:black;
+}
+
+.log2 h1 {
+  position:relative;
+  text-align:center;
+  color:black;
+  margin-left: 500px;
+}
+
+.log3 h1{
+  position:relative;
+  text-align:left;
+  color:black;
+  
+}
+
+.log .errore{
+  color:red;
+}
+
+.formLogin{
+	position:absolute;
+	left:35%;
+	top:5em;
+	font-size:30px;
+}
+
+.formLogin button{
+	width:100%;
+	height:30px;
+	font-size:20px;
+	margin-top:10px;
+	background-color:limegreen;
+}
+
+.prodotto{
+  position:relative;
+  width: 100px;
+      height: 100px;
+      border-radius: 50%;
+       background:lightgrey;
+  margin: 50px 70px 30px 50px;
+  left:15px;
+}
+
+.prodotto a{
+  position:relative;
+  left:19px;
+}
+
+.prodotto img{
+  width:100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: contain;
+}
+
+
+
+.boxImage{
+  position:relative;
+  left:5%;
+  top:10px;
+  width:20em;
+  height:40em;
+  background-color:grey;
+  
+}
+
+.prodottoTitle{
+  position:relative;
+}
+
+.descrizioneProdotto{
+  position:absolute;
+  width:30em;
+  height:20em;
+  left:40%;
+  top:30%;
+ }
+
+.descrizioneProdotto p{
+  font-size:20px;
+}
+
+.divRecensioni {
+  position:absolute;
+  left:67%;
+  top:35%;
+  width: 30%;
+  height: 70%;
+  overflow: auto;
+  border: 1px solid black;
+}
+
+.Recensione{
+  border-bottom: 0.5px solid;
+  width:100%;
+  height:25%;
+  
+}
+
+.votoCommento{
+  float:right;
+  margin:6 50%;
+}
+
+.titoloCommento{
+  float:right;
+   margin:0 48%;
+  
+}
+
+.aggiungiCommento{
+  position:relative;
+  left:35%;
+  top:35%;
+  color:green;
+  text-decoration:underline;
+  font-size: 20px;
+}
+
 
 

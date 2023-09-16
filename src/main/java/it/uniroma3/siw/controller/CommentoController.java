@@ -29,10 +29,15 @@ public class CommentoController {
 	private UserService userService;
 
 
-	@GetMapping("/authenticated/formNewCommento")
-	public String formNewCommento(Model model) {
-		model.addAttribute("commento", new Commento());
-		return "admin/formNewCommento.html";
+	@GetMapping("/authenticated/formNewCommento/{idProdotto}")
+	public String formNewRecensione(@PathVariable("idProdotto") Long idProdotto ,Model model) {
+		Prodotto prodotto = this.prodottoService.findProdottoeById(idProdotto);
+		
+		if(prodotto!=null) {
+			model.addAttribute("commento", new Commento());
+			model.addAttribute("prodotto", prodotto);
+		}
+		return "authenticated/formNewCommento.html";
 	}
 
 	@PostMapping("/authenticated/newCommento/{idProdotto}")
@@ -43,10 +48,11 @@ public class CommentoController {
 		User user = this.userService.getUserAuthentication(authentication);
 		commento.setProdotto(prod);
 		commento.setUtente(user);
-
 		this.commentoService.saveCommento(commento,prod , user);
-
 		model.addAttribute("prodotto", prod);
+		model.addAttribute("commentoUtente",this.commentoService.getCommentoUtente(authentication, prod));
+		model.addAttribute("commenti",this.commentoService.getCommentiNotUtente(authentication, prod));
+		
 		return "guest/prodotto.html";
 	}
 

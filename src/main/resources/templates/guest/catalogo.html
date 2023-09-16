@@ -22,7 +22,7 @@
 	</div>
 	</header>
 
-	<img class="logoCatalogo" src="/images/SiwPLogo.png" width="20%" />
+	<img class="logo" src="/images/SiwPLogo.png"/>
 	
 	<div class="utente" th:if="${#request.userPrincipal}">
 		<div th:text="'Bentornato ' + ${#request.userPrincipal.principal.username}"> </div>
@@ -53,7 +53,28 @@
     </div>
 </div>   
     
-      <div class="boxProdotto">
+      <div class="boxProdotto" style="display: flex; flex-wrap: wrap;">
+        
+        
+        
+         <div th:each="prodotto : ${prodotti}">
+           
+           <div class="boxdestinazione" th:if="${prodotto.getDataImage() == null}">
+    <img src="/images/SiwPLogo.png" />
+    <a th:text="${prodotto.nome}" th:href="@{'/guest/prodotto/' + ${prodotto.id}}">Prodotto</a>
+</div>
+        
+       
+        
+         <div class="prodotto" th:if="${prodotto.getDataImage() != null}">
+             <img th:src="@{'data:image/png;base64,' + ${prodotto.getDataImage()}}"/>
+    <a th:text="${prodotto.nome}" th:href="@{'/guest/prodotto/' + ${prodotto.id}}">Prodotto</a>
+</div>
+           
+        
+
+      
+    </div>
       
     </div> 
     
