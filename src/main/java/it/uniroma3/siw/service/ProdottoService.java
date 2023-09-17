@@ -31,7 +31,7 @@ public class ProdottoService {
 	}
 	
 	@Transactional
-	public Prodotto findProdottoeById(Long id) {
+	public Prodotto findProdottoById(Long id) {
 		return this.prodottoRepository.findById(id).get();
 	}
 	
@@ -84,7 +84,18 @@ public class ProdottoService {
 		fornitore.getProdotti().remove(prodotto);
 		this.fornitoreService.saveFornitore(fornitore);
 		this.saveProdotto(prodotto);
-		
+	}
+	
+	@Transactional
+	public Float getMediaVotiProdotto(Long idProdotto) {
+		return this.prodottoRepository.findAverageVotiByProdottoId(idProdotto);
+	}
+	
+	@Transactional
+	public void modificaProdotto(Prodotto prodotto, Prodotto p) {
+		prodotto.setNome(p.getNome());
+		prodotto.setPrezzo(p.getPrezzo());
+		prodotto.setDescrizione(p.getDescrizione());
 	}
 
 }

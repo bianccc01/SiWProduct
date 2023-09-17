@@ -31,6 +31,9 @@ public class User {
 	
 	@OneToOne
 	private Image image;
+	
+	@OneToOne
+	private Credentials credentials;
 
 	@OneToMany(mappedBy= "user")
 	private List <Commento> commenti = new ArrayList<>();
@@ -96,6 +99,18 @@ public class User {
 
 	public void setImage(Image image) {
 		this.image = image;
+	}
+
+	public Credentials getCredentials() {
+		return credentials;
+	}
+
+	public void setCredentials(Credentials credentials) {
+		this.credentials = credentials;
+	}
+	
+	public String getUsernameUtente() {
+		return this.credentials.getUsername();
 	}
 	
 	

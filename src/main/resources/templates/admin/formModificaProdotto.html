@@ -5,7 +5,7 @@
 
 <head>
 	<title>
-		Inserisci un nuovo prodotto
+		Modifica un prodotto
 	</title>
 	<link rel="stylesheet" href="/css/stile.css" />
 </head>
@@ -25,25 +25,26 @@
 
 	
 	<div class = "logo"><img src="/images/SiwPLogo.png"/></div>
-	<h1>Aggiungi un Prodotto</h1>
+	<h1>Modifica Caratteristiche prodotto</h1>
 	</div>
-	<form class ="formNew" th:action="@{/admin/newProdotto}" method="POST" th:object="${prodotto}" enctype="multipart/form-data">
+	<form class ="formNew" th:action="@{/admin/editProdotto/} + ${prodotto.id}" method="POST" enctype="multipart/form-data">
 		
 	
 		
 		<div>
 			<label>Nome:</label> 
-			<span><input type="text" th:field="${prodotto.nome}" /></span>
+			<span><input type="text" th:value="${prodotto.getNome()}" th:field="${prodotto.nome}" /></span>
 		</div>
 		
 		<div>
 			<label>Prezzo:</label> 
-			<span><input type="number" min="0" step="1" th:field="${prodotto.prezzo}" /></span>
+			<span><input type="number" min="0" step="1" th:value="${prodotto.getPrezzo()}" th:field="${prodotto.prezzo}" /></span>
+
 		</div>
 		
 		<div class= "descrizioneContainer">
     <label for="text"> <p>Descrizione: </p></label>
-    <textarea id="text" class="descrizione" name="descrizione" th:field="${prodotto.descrizione}"> </textarea>
+    <textarea id="text" class="descrizione" name="descrizione"  th:field="${prodotto.descrizione}" th:text="${prodotto.descrizione}"> </textarea>
 </div>
 
 <div>

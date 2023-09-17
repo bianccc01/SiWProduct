@@ -2,9 +2,12 @@ package it.uniroma3.siw.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 
 
@@ -15,12 +18,14 @@ public class Prodotto {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
+	@Size(max = 50)
 	@NotBlank
 	private String nome;
 
 	@NotNull
 	private int prezzo;
 	
+	@Size(max = 50)
 	@NotBlank
 	private String descrizione;
 	
@@ -102,6 +107,28 @@ public class Prodotto {
 	public void setImage(Image image) {
 		this.image = image;
 	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Prodotto other = (Prodotto) obj;
+		return Objects.equals(id, other.id);
+	}
+
+	
+	
+	
+	
 	
 	
 	

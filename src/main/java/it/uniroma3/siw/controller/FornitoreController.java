@@ -47,7 +47,7 @@ public class FornitoreController {
 	
 	@GetMapping("/admin/listafornitori/{idProdotto}")
 	public String listaFornitori(@PathVariable("idProdotto") Long idProdotto, Model model) {
-		Prodotto prodotto = this.prodottoService.findProdottoeById(idProdotto);
+		Prodotto prodotto = this.prodottoService.findProdottoById(idProdotto);
 		model.addAttribute("fornitori",this.fornitoreService.getFornitoriDaAggiungere(prodotto));
 		model.addAttribute("idProdotto",idProdotto);
 		return "admin/listaFornitoriProdotto.html";

@@ -3,8 +3,8 @@
 	<link rel="icon" type="image/png" href="images/IconSP.png"/>
 
 <head>
-	<title th:text="${prodotto.nome} + ' - SiwProducts - Prodotto'">
-	</title>
+	
+	<title th:text="${prodotto.nome} + ' - SiwProducts - Prodotto'"></title>
 
 	<link rel="stylesheet" href="/css/stile.css" />
 </head>
@@ -12,8 +12,10 @@
 <body>
 	<header>
     <div style="float:left"><a href="/">Home</a></div>
+    <div style="float:left; margin-left:30px;" th:if="${credentials != null && credentials.getRole() == 'ADMIN'}">
+		<a th:href="@{'/admin/formModificaProdotto/' + ${prodotto.id}}">Modifica Prodotto</a></div>
     <div th:if="${#request.userPrincipal}">
-		<span th:text="'Bentornato ' + ${#request.userPrincipal.principal.username}"></span>
+		<span style ="position: absolute;" class="nomeUtenteLoggato" th:text="${#request.userPrincipal.principal.username}"></span>
     		<a href="/logout">Logout</a>
 	</div>
 
@@ -29,9 +31,14 @@
     <p th:text="${prodotto.descrizione}"></p>
   </div>
   
+  <div class="PrezzoVotoProdotto">
+    <p th:text="'Prezzo: ' + ${prodotto.prezzo} + ' euro' ">100 €</p>
+    <p th:if="${mediaVoto != null}" th:text="'Valutazione: ' + ${mediaVoto} + '/5' ">3.5/5</p>
+  </div>
+  
   <div class = "boxImage"> 
-        <img th:if="${prodotto.getImage() == null}" src="/images/SiwPLogo.png" />
-		<img th:if="${prodotto.getImage() != null}" th:src="@{'data:image/png;base64,' + ${prodotto.getDataImage()}}"/>
+        <img th:if="${prodotto.getDataImage() == null}" src="/images/SiwPLogo.png"/>
+		<img th:if="${prodotto.getDataImage() != null}" th:src="@{'data:image/png;base64,' + ${prodotto.getDataImage()}}"/>
 
       </div>
       
@@ -39,21 +46,28 @@
       <div class="divRecensioni">
         
         <div class = "Recensione" th:if="${commentoUtente != null}"> 
-          <div class="titoloCommento" th:text="${commentoUtente.titolo}"> Titolo</div>
-            <div class ="votoCommento" th:text="${commentoUtente.voto} + '/5'" > 3/5 </div>
-          <div th:text="${commentoUtente.testo}" style="word-wrap: break-word;">  </div>
+          <div class="titoloCommento" th:text="${commentoUtente.titolo}">Titolo </div>
+           <div class="header" style="display: flex; justify-content: space-between;">
+        <div class="nomeUtente" th:text="${commentoUtente.user.getUsernameUtente()}"> Nomeutente</div>
+        <div class ="votoCommento" th:text="${commentoUtente.voto} + '/5'" > 3/5 </div>
+             <a th:href="@{'/authenticated/rmvCommento/' + ${commentoUtente.id}}" class="rimuoviCommento"> Rimuovi commento</a> 
+             <div class ="testoCommento" th:text="${commentoUtente.testo}"> Descrizione </div>
+    </div>
         </div>
         
-        <div class = "Recensione" th:if="${commentoUtente == null}"> 
+       <div class = "Recensione" th:if="${commentoUtente == null}"> 
           <a th:href="@{'/authenticated/formNewCommento/' + ${prodotto.id}}" class="aggiungiCommento"> Aggiungi commento</a>
         </div>
         
         <div th:each="commento : ${commenti}"> 
         
-            <div class = "Recensione"> 
-          <p class="titoloCommento" th:text="${commento.titolo}"> Titolo</p>
-            <p class ="votoCommento" th:text="${commento.voto} + '/5'"> 3/5 </p>
-          <div th:text="${commento.testo}" style="word-wrap: break-word;">  </div>
+           <div class = "Recensione"> 
+          <div class="titoloCommento" th:text="${commento.titolo}">Titolo</div>
+           <div class="header" style="display: flex; justify-content: space-between;">
+        <div class="nomeUtente" th:text="${commento.user.getUsernameUtente()}"> nomeUtente </div>
+        <div class ="votoCommento" th:text="${commento.voto} + '/5'" > 3/5 </div>
+             <div class ="testoCommento" th:text="${commento.testo}"> Descrizione </div>
+    </div>
         </div>
         
         

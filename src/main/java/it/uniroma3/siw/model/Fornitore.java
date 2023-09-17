@@ -3,6 +3,7 @@ package it.uniroma3.siw.model;
 import java.util.List;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Fornitore {
@@ -12,9 +13,11 @@ public class Fornitore {
     @SequenceGenerator(name = "my_entity_seq", sequenceName = "my_entity_sequence", initialValue = 10)
 	private Long id;
 
+	@Size(max = 50)
 	@NotBlank
 	private String nome;
 
+	@Size(max = 50)
 	@NotBlank
 	private String indirizzo;
 	

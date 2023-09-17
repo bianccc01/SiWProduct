@@ -57,4 +57,20 @@ public class CredentialsService {
 			return credentials.getUser();
 		}
 	}
+	@Transactional
+	public Credentials getCredentials(Authentication authentication) {
+
+		if (authentication instanceof AnonymousAuthenticationToken) {
+			return null;
+		}
+
+		else {
+
+			UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			return this.getCredentials(userDetails.getUsername());
+		}
+	}
+	
+	
+	
 }

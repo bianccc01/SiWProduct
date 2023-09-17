@@ -7,6 +7,7 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Commento {
@@ -15,9 +16,11 @@ public class Commento {
 	@GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 	
+	@Size(min = 5)
 	@NotBlank
 	private String titolo;
 	
+	@Size(min = 10)
 	private String testo;
 	
 	@NotNull
@@ -62,15 +65,15 @@ public class Commento {
 	public void setVoto(int voto) {
 		this.voto = voto;
 	}
-
-	public User getUtente() {
+	
+	public User getUser() {
 		return user;
 	}
 
-	public void setUtente(User user) {
+	public void setUser(User user) {
 		this.user = user;
 	}
-	
+
 	public Prodotto getProdotto() {
 		return prodotto;
 	}

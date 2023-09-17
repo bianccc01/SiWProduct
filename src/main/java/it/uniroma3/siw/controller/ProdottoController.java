@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import it.uniroma3.siw.model.Fornitore;
 import it.uniroma3.siw.model.Prodotto;
 import it.uniroma3.siw.service.CommentoService;
+import it.uniroma3.siw.service.CredentialsService;
 import it.uniroma3.siw.service.FornitoreService;
 import it.uniroma3.siw.service.ImageService;
 import it.uniroma3.siw.service.ProdottoService;
@@ -38,6 +39,9 @@ public class ProdottoController {
 	
 	@Autowired
 	private CommentoService commentoService;
+	
+	@Autowired
+	private CredentialsService credentialsService;
 
 	@GetMapping("/admin/formNewProdotto")
 	public String formNewProdotto(Model model) {
@@ -56,7 +60,7 @@ public class ProdottoController {
 	
 	@GetMapping("/admin/addFornitoreToProdotto/{idProdotto}/{idFornitore}")
 	public String addFornitoreProdotto(@PathVariable("idProdotto") Long idProdotto, @PathVariable ("idFornitore") Long idFornitore, Model model) {
-		Prodotto prodotto = this.prodottoService.findProdottoeById(idProdotto);
+		Prodotto prodotto = this.prodottoService.findProdottoById(idProdotto);
 		Fornitore fornitore = this.fornitoreService.findFornitoreById(idFornitore);
 		this.prodottoService.addFornitore(prodotto,fornitore);
 		model.addAttribute("fornitori",this.fornitoreService.getFornitoriDaAggiungere(prodotto));
@@ -66,7 +70,7 @@ public class ProdottoController {
 	
 	@GetMapping("/admin/rmvFornitoreToProdotto/{idProdotto}/{idFornitore}")
 	public String rmvFornitoreProdotto(@PathVariable("idProdotto") Long idProdotto, @PathVariable ("idFornitore") Long idFornitore, Model model) {
-		Prodotto prodotto = this.prodottoService.findProdottoeById(idProdotto);
+		Prodotto prodotto = this.prodottoService.findProdottoById(idProdotto);
 		Fornitore fornitore = this.fornitoreService.findFornitoreById(idFornitore);
 		this.prodottoService.rmvFornitore(prodotto,fornitore);
 		model.addAttribute("fornitori",this.fornitoreService.getFornitoriDaAggiungere(prodotto));
@@ -81,12 +85,37 @@ public class ProdottoController {
 		return "guest/prodotti.html";
 	}
 	
-	@GetMapping("/guest/prodotto/{idProdotto}")
-	public String getProdotti(@PathVariable("idProdotto") Long idProdotto,Model model) {
+	@GetMapping("/admin/formModificaProdotto/{idProdotto}")
+	public String getFormModificaProdotto(@PathVariable("idProdotto") Long idProdotto, Model model) {
+		Prodotto prodotto = this.prodottoService.findProdottoById(idProdotto);
+		model.addAttribute("prodotto",prodotto);
+		return "admin/formModificaProdotto.html";
+	}
+	
+	@PostMapping("/admin/editProdotto/{idProdotto}")
+	public String editProdotto(@ModelAttribute("prodotto") Prodotto prodottoForm, @PathVariable("idProdotto") Long idProdotto, @RequestParam("file") MultipartFile file,
+			Model model) throws IOException {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		Prodotto prodotto = this.prodottoService.findProdottoeById(idProdotto);
+		Prodotto prodotto = this.prodottoService.findProdottoById(idProdotto);
+		this.prodottoService.modificaProdotto(prodotto,prodottoForm);
+		this.imageService.newImagesProd(file, prodotto);
+		this.prodottoService.saveProdotto(prodotto);
+		model.addAttribute("credentials",this.credentialsService.getCredentials(authentication));
 		model.addAttribute("commentoUtente",this.commentoService.getCommentoUtente(authentication, prodotto));
 		model.addAttribute("commenti",this.commentoService.getCommentiNotUtente(authentication, prodotto));
+		model.addAttribute("mediaVoto",this.prodottoService.getMediaVotiProdotto(idProdotto));
+		model.addAttribute("prodotto",prodotto);
+		return "guest/prodotto.html";
+	}
+	
+	@GetMapping("/guest/prodotto/{idProdotto}")
+	public String getProdotto(@PathVariable("idProdotto") Long idProdotto,Model model) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Prodotto prodotto = this.prodottoService.findProdottoById(idProdotto);
+		model.addAttribute("credentials",this.credentialsService.getCredentials(authentication));
+		model.addAttribute("commentoUtente",this.commentoService.getCommentoUtente(authentication, prodotto));
+		model.addAttribute("commenti",this.commentoService.getCommentiNotUtente(authentication, prodotto));
+		model.addAttribute("mediaVoto",this.prodottoService.getMediaVotiProdotto(idProdotto));
 		model.addAttribute("prodotto",prodotto);
 		return "guest/prodotto.html";
 	}
@@ -100,7 +129,7 @@ public class ProdottoController {
 
 	@GetMapping("/admin/rimuoviProdotto/{prodottoId}")
 	public String removeFornitore(@PathVariable("prodottoId") Long idProdotto, Model model) {
-		Prodotto prodotto = this.prodottoService.findProdottoeById(idProdotto);
+		Prodotto prodotto = this.prodottoService.findProdottoById(idProdotto);
 		this.prodottoService.removeProdotto(prodotto);
 		model.addAttribute("Prodotti",this.prodottoService.allProdotti());
 		return "guest/prodotti.html";

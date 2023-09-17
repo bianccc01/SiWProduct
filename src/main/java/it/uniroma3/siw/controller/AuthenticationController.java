@@ -76,6 +76,7 @@ public class AuthenticationController {
         // se user e credential hanno entrambi contenuti validi, memorizza User e the Credentials nel DB
         if(!userBindingResult.hasErrors() && ! credentialsBindingResult.hasErrors()) {
             credentials.setUser(user);
+            user.setCredentials(credentials);
             credentialsService.saveCredentials(credentials);
             model.addAttribute("user", user);
             return "guest/registrationSuccessful";

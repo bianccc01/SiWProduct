@@ -10,28 +10,24 @@
 
 <body>
 	<header>
-    <a class = "home" href="/"> Home </a>
-		
+    <div style="float:left"><a href="/">Home</a></div>
     <div th:if="${#request.userPrincipal}">
+		<span class="nomeUtenteLoggato" th:text="${#request.userPrincipal.principal.username}"></span>
     		<a href="/logout">Logout</a>
-		</div>
-
-		<div th:unless="${#request.userPrincipal}">
-			<a href="/login">Login</a>
-		</div>
-	</header>
-	<div class = "logo"><img src="/images/SiwPLogo.png" width="20%"/></div></div>
-	
-	<form class="container" th:action="@{'/authenticated/newCommento/' + ${prodotto.id} }" method="POST" th:object="${commento}">
-		<h1 class="log1">Inserisci una recensione</h1>
-		<div class="utente" th:if="${#request.userPrincipal}">
-		<div th:text="'Bentornato ' + ${#request.userPrincipal.principal.username}"> </div>
-    		<a href="/authenticated/userDetails">>Vai al tuo account </a>
 	</div>
-		<div class="log">
+
+	<div th:unless="${#request.userPrincipal}">
+			<a href="/login">Login</a>
+	</div>
+	</header>
+	<div class = "logo"><img src="/images/SiwPLogo.png"></div></div>
+	
+	<form class="formNew" th:action="@{'/authenticated/newCommento/' + ${prodotto.id} }" method="POST" th:object="${commento}">
+		<h4>Inserisci un commento</h4>
+	
 		<div>
 			<label>Titolo:</label> 
-			<span><input type="text" maxlength="65" th:field="${commento.titolo}" /></span>
+			<span><input type="text" maxlength="35" th:field="${commento.titolo}" /></span>
 		</div>
 		<div>
           <label>Voto:</label> 
@@ -40,13 +36,13 @@
 
 	<div class= "descrizioneContainer">
     <label for="text"> <p>Testo: </p></label>
-    <textarea id="text" class="descrizione" maxlength="165" name="descrizione" th:field="${commento.testo}"> </textarea>
+    <textarea id="text" class="descrizione" maxlength="120" name="descrizione" th:field="${commento.testo}"> </textarea>
 	</div>
 	
 		<div>
 			<span><button class = "conferma" type="submit">Conferma</button></span>
 		</div>
-	</div>
+
 	</form>
 </body>
 

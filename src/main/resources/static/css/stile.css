@@ -1,9 +1,10 @@
 body { 
-    font-family: cursive;
+    font-family: system-ui;
     color:black;
     font-size: 15px;
     background-color:white;
     margin: 0 auto;
+    overflow:auto;
 }
 
 a { 
@@ -195,6 +196,7 @@ border:solid;
   width:90em;
   height:100vh;
   float:left;
+  align-content: start;
 }
 
 .fornitoreSelezionato{
@@ -256,28 +258,37 @@ border:solid;
 
 .container {
   position:relative;
-  top:50px;
-  left:60px;
+  top:100px;
+  width:80%;
+  left:10em;
   display: flex;
   justify-content: space-between;
  }
         
-  .list {
-    width: 45%;
+.list {
+ position:relative;
+	left:5%;  
+    width: 40%;
+    font-size:20px;
   }
 
 .log div {
   position:relative;
-	right:700px;
+	right:52em;
+	top:50%;
   text-align:center;
-  margin-right: 20%;
   color:black;
   padding: 6px;
 }
 
 .log button{
-	padding:5px;
-	margin-left: 10%;
+	position:relative;
+	left:90px;
+	width:80%;
+	height:30px;
+	font-size:20px;
+	background-color:limegreen;
+	
 }
 
 .tastoAddImage{
@@ -288,18 +299,20 @@ border:solid;
 .log a{
 	padding:5px;
 	margin-left: 10%;
+	
 }
 
 .log input{
 	padding:5px;
 	margin-left: 10%;
+	
 }
 
 .log1{
   position:relative;
-	bottom:120px;
+	top:70px;
   text-align:center;
-  margin-left: 15em;
+  margin-left: 15.5em;
   color:black;
 }
 
@@ -310,8 +323,10 @@ border:solid;
   margin-left: 500px;
 }
 
-.log3 h1{
-  position:relative;
+.log3{
+  position:absolute;
+	top:20%;
+	left:32%;
   text-align:left;
   color:black;
   
@@ -339,16 +354,18 @@ border:solid;
 .prodotto{
   position:relative;
   width: 100px;
-      height: 100px;
-      border-radius: 50%;
-       background:lightgrey;
+  height: 100px;
+  border-radius: 50%;
+  background:lightgrey;
   margin: 50px 70px 30px 50px;
   left:15px;
 }
 
 .prodotto a{
   position:relative;
-  left:19px;
+  left:5px;
+	color:black;
+	font-size:20px;
 }
 
 .prodotto img{
@@ -366,62 +383,158 @@ border:solid;
   top:10px;
   width:20em;
   height:40em;
-  background-color:grey;
+  background-color:lightgray;
+  
+}
+
+.boxImage img{
+  width:100%;
+  height: 100%;
+  object-fit: contain;
   
 }
 
 .prodottoTitle{
   position:relative;
+  right:50px;
 }
 
 .descrizioneProdotto{
   position:absolute;
-  width:30em;
+  width:32em;
   height:20em;
-  left:40%;
+  left:34%;
   top:30%;
  }
 
 .descrizioneProdotto p{
-  font-size:20px;
+  font-size:30px;
+}
+
+.prezzoVotoProdotto{
+   position:absolute;
+  width:32em;
+  height:20em;
+  left:34%;
+  top:74.3%;
+}
+
+.prezzoVotoProdotto p{
+  position:relative;
+  bottom:10%;
+  font-size:50px;
+	border:solid;
+  
 }
 
 .divRecensioni {
   position:absolute;
   left:67%;
-  top:35%;
+  top:25%;
   width: 30%;
-  height: 70%;
-  overflow: auto;
+  height: 80%;
   border: 1px solid black;
+  overflow: auto;
 }
 
 .Recensione{
   border-bottom: 0.5px solid;
   width:100%;
   height:25%;
-  
 }
 
 .votoCommento{
-  float:right;
-  margin:6 50%;
+  position:absolute;
+	left:90%;
+	font-size:20px;
+  
 }
 
 .titoloCommento{
+  position:absolute;
   float:right;
-   margin:0 48%;
+  width:100%;
+   margin:25 0.1px;
+  font-weight: bold;
   
 }
 
 .aggiungiCommento{
   position:relative;
-  left:35%;
-  top:35%;
+  left:67%;
+  top:80%;
   color:green;
   text-decoration:underline;
   font-size: 20px;
 }
 
+.nomeUtente{
+  margin:left;
+  font-weight: bold;
+}
+
+.testoCommento{
+  position:absolute;
+  float:right;
+  width:100%;
+	height:100px;
+   margin:50 0.1px;
+}
+
+.rimuoviCommento{
+  position:absolute;
+  bottom:42em;
+	right:0.01px;
+  color:red;
+}
 
 
+.RiepilogoUtente{
+	position:relative;
+	left:25em;
+	 top:10em;
+	font-size:30px;
+	width:25%;
+	
+}
+
+.RiepilogoUtente div{
+	margin:10px;
+}
+
+.RiepilogoUtente a{
+	color:limegreen;
+}
+
+.formNew{
+	position:relative;
+	left:35%;
+	top:10em;
+	font-size:20px;
+}
+
+.formNew div{
+	padding:5px;
+}
+
+.formNew button{
+	position:relative;
+	margin-top:10px;
+	left:5%;
+	width: 20%;
+	height: 30px;
+	background-color:limegreen;
+}
+
+
+.nomeUtenteLoggato{
+	position:relative;
+	font-weight: bold;
+}
+
+.formNew h4{
+	position:relative;
+	right:35%;
+  font-size: 40px;
+  text-align:center;
+}

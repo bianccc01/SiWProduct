@@ -66,7 +66,7 @@ public class CommentoService {
 	@Transactional
 	public void rimuoviCommento(Commento c) {
 		c.getProdotto().getCommenti().remove(c);
-		c.getUtente().getCommenti().remove(c);
+		c.getUser().getCommenti().remove(c);
 		this.commentoRepository.delete(c);
 	}
 	
@@ -74,7 +74,7 @@ public class CommentoService {
 	public List<Commento> getCommentiNotUtente(Authentication auth, Prodotto prod) {
 		User user=this.credentialsService.getUser(auth);
 		if(user==null) {
-			return null;
+			return this.allCommentiProdotto(prod);
 		}
 		return this.commentoRepository.findByProdottoAndUserNot(prod,user);
 	}
