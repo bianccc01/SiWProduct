@@ -2,16 +2,18 @@ package it.uniroma3.siw.controller;
 
 import java.io.IOException;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
+import it.uniroma3.siw.controller.validation.FornitoreValidator;
 import it.uniroma3.siw.model.Fornitore;
 import it.uniroma3.siw.model.Prodotto;
 import it.uniroma3.siw.service.FornitoreService;
@@ -24,6 +26,9 @@ public class FornitoreController {
 	
 	@Autowired
 	private ProdottoService prodottoService;
+	
+	@Autowired
+	private FornitoreValidator fornitoreValidator;
 
 
 	@GetMapping("/admin/formNewFornitore")
@@ -33,11 +38,18 @@ public class FornitoreController {
 	}
 
 	@PostMapping("/admin/newFornitore")
-	public String newFornitore(@ModelAttribute("fornitore") Fornitore fornitore, Model model){
+	public String newFornitore(@Valid @ModelAttribute("fornitore") Fornitore fornitore, BindingResult bindingResult, Model model){
+		this.fornitoreValidator.validate(fornitore, bindingResult);
+		if (!bindingResult.hasErrors()) {
 		this.fornitoreService.saveFornitore(fornitore);
 		model.addAttribute("fornitori", this.fornitoreService.allFornitori());
 		model.addAttribute("prodotti", this.prodottoService.allProdotti());
 		return "admin/gestioneCatalogo.html";
+		}
+		
+		else {
+			return "admin/formNewFornitore.html";
+		}
 	}
 
 
@@ -58,11 +70,19 @@ public class FornitoreController {
 	
 	@PostMapping("/admin/editFornitore/{idFornitore}")
 	public String editProdotto(@ModelAttribute("fornitore") Fornitore fornitoreForm, @PathVariable("idFornitore") Long idFornitore, 
-			Model model){
+			BindingResult bindingResult, Model model){
+		
+		this.fornitoreValidator.validate(fornitoreForm, bindingResult);
+		if (!bindingResult.hasErrors()) {
 		Fornitore fornitore = this.fornitoreService.findFornitoreById(idFornitore);
 		this.fornitoreService.modificaFornitore(fornitore,fornitoreForm);
 		this.fornitoreService.saveFornitore(fornitore);
 		return "redirect:/admin/gestioneCatalogo";
+		}
+		
+		else {
+			return "admin/formModificaFornitore.html";
+		}
 	}
 	
 	

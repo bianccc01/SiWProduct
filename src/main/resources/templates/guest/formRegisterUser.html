@@ -33,8 +33,7 @@
 			<span>
 				<input type="text" placeholder="username" required th:field="${credentials.username}" />
 			</span>
-			<span th:if="${#fields.hasErrors('credentials.username')}" th:errors="${credentials.username}"
-				th:style="'color:red'">
+			<span th:if="${#fields.hasErrors('credentials.username')}" th:errors="${credentials.username}">
 			</span>
 		</div>
 		<div>
@@ -62,11 +61,6 @@
 			<span><input type="email" placeholder="email" required th:field="${user.email}" /></span>
 			<span th:if="${#fields.hasErrors('user.email')}" th:errors="${user.email}" th:style="'color:red'">
 			</span>
-		</div>
-		<div>
-			<label> </label>
-			<span><input class="tastoAddImage" type="file" th:name="file" /></span>
-			
 		</div>
 		<div>
 			<button type="submit">Registrati</button>

@@ -29,21 +29,28 @@
 	</div>
 	<form class ="formNew" th:action="@{/admin/newProdotto}" method="POST" th:object="${prodotto}" enctype="multipart/form-data">
 		
+		<div th:if="${#fields.hasGlobalErrors()}">
+    <p th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p> 
+</div>
+		
 	
 		
 		<div>
 			<label>Nome:</label> 
-			<span><input type="text" th:field="${prodotto.nome}" /></span>
+			<span><input type="text" minlength="1" th:field="${prodotto.nome}" /></span>
+			<span class="error-message" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}">
 		</div>
 		
 		<div>
 			<label>Prezzo:</label> 
 			<span><input type="number" min="0" step="1" th:field="${prodotto.prezzo}" /></span>
+			<span class="error-message" th:if="${#fields.hasErrors('prezzo')}" th:errors="*{prezzo}">
 		</div>
 		
 		<div class= "descrizioneContainer">
     <label for="text"> <p>Descrizione: </p></label>
-    <textarea id="text" class="descrizione" name="descrizione" th:field="${prodotto.descrizione}"> </textarea>
+    <textarea id="text" class="descrizione" name="descrizione" minlength="1" th:field="${prodotto.descrizione}"> </textarea>
+    <span class="error-message" th:if="${#fields.hasErrors('descrizione')}" th:errors="*{descrizione}">
 </div>
 
 <div>

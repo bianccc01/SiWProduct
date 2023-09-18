@@ -274,17 +274,17 @@ border:solid;
 
 .log div {
   position:relative;
-	right:90%;
-	top:60%;
+	right:110%;
+	top:50%;
   text-align:center;
   color:black;
-  padding: 6px;
 }
 
 .log button{
 	position:relative;
-	left:90px;
+	left:23px;
 	width:80%;
+	top:20px;
 	height:30px;
 	font-size:20px;
 	background-color:limegreen;
@@ -310,7 +310,7 @@ border:solid;
 
 .log1{
   position:relative;
-	top:70px;
+	right:20px;
   text-align:center;
   margin-left: 15.5em;
   color:black;
@@ -552,4 +552,9 @@ border:solid;
 	top:20%;
 	font-size:25px;
 	max-width: 50%;
+}
+
+.error-message {
+  	color: red;
+  	font-style: italic;
 }

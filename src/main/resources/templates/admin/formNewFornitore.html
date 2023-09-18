@@ -10,7 +10,7 @@
 	<link rel="stylesheet" href="/css/stile.css" />
 </head>
 
-<body>
+<body style ="overflow:hidden;">
 	<header>
     <div style="float:left"><a href="/">Home</a></div>
     <div th:if="${#request.userPrincipal}">
@@ -29,21 +29,27 @@
 	</div>
 	<form class ="formNew" th:action="@{/admin/newFornitore}" method="POST" th:object="${fornitore}">
 		
-	
+	<div th:if="${#fields.hasGlobalErrors()}">
+    <p th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p> 
+</div>
+
 		
 		<div>
 			<label>Nome:</label> 
 			<span><input type="text" th:field="${fornitore.nome}" /></span>
+			<span class="error-message" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}">
 		</div>
 		
 		<div>
 			<label>Indirizzo:</label> 
 			<span><input type="text" th:field="${fornitore.indirizzo}" /></span>
+			<span class="error-message" th:if="${#fields.hasErrors('indirizzo')}" th:errors="*{indirizzo}">
 		</div>
 		
 		<div>
 			<label>email:</label> 
 			<span><input type="email" th:field="${fornitore.email}" /></span>
+			<span class="error-message" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">
 		</div>
 
 		

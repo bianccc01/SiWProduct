@@ -16,15 +16,13 @@ public class Prodotto {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	@Size(max = 50)
-	@NotBlank
+	@NotNull
 	private String nome;
 
 	@NotNull
 	private int prezzo;
 	
-	@Size(max = 50)
-	@NotBlank
+	@NotNull
 	private String descrizione;
 	
 	@OneToOne

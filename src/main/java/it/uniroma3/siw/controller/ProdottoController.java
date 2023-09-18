@@ -9,6 +9,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import it.uniroma3.siw.controller.validation.ProdottoValidator;
 import it.uniroma3.siw.model.Fornitore;
 import it.uniroma3.siw.model.Prodotto;
 import it.uniroma3.siw.service.CommentoService;
@@ -43,6 +45,9 @@ public class ProdottoController {
 	@Autowired
 	private CredentialsService credentialsService;
 
+	@Autowired
+	private ProdottoValidator prodottoValidator;
+
 	@GetMapping("/admin/formNewProdotto")
 	public String formNewProdotto(Model model) {
 		model.addAttribute("prodotto", new Prodotto());
@@ -50,10 +55,20 @@ public class ProdottoController {
 	}
 
 	@PostMapping("/admin/newProdotto")
-	public String newProdotto(@ModelAttribute("prodotto") Prodotto prodotto, @RequestParam("file") MultipartFile file, Model model) throws IOException{
-		this.imageService.newImagesProd(file, prodotto);
-		this.prodottoService.saveProdotto(prodotto);
-		return "redirect:/admin/getListaFornitoriProdotto/" + prodotto.getId();
+	public String newProdotto(@Valid @ModelAttribute("prodotto") Prodotto prodotto, @RequestParam("file") MultipartFile file,
+			BindingResult bindingResult, Model model) throws IOException{
+		
+		this.prodottoValidator.validate(prodotto, bindingResult);
+		if (!bindingResult.hasErrors()) {
+			this.imageService.newImagesProd(file, prodotto);
+			this.prodottoService.saveProdotto(prodotto);
+			return "redirect:/admin/getListaFornitoriProdotto/" + prodotto.getId();
+		}
+
+		else {
+			
+			return"admin/formNewProdotto";
+		}
 	}
 
 	@GetMapping("/admin/getListaFornitoriProdotto/{idProdotto}")
@@ -97,12 +112,19 @@ public class ProdottoController {
 
 	@PostMapping("/admin/editProdotto/{idProdotto}")
 	public String editProdotto(@ModelAttribute("prodotto") Prodotto prodottoForm, @PathVariable("idProdotto") Long idProdotto, @RequestParam("file") MultipartFile file,
-			Model model) throws IOException {
-		Prodotto prodotto = this.prodottoService.findProdottoById(idProdotto);
-		this.prodottoService.modificaProdotto(prodotto,prodottoForm);
-		this.imageService.newImagesProd(file, prodotto);
-		this.prodottoService.saveProdotto(prodotto);
-		return "redirect:/guest/prodotto/"+ idProdotto;
+			BindingResult bindingResult, Model model) throws IOException {
+		this.prodottoValidator.validate(prodottoForm, bindingResult);
+		if (!bindingResult.hasErrors()) {
+			Prodotto prodotto = this.prodottoService.findProdottoById(idProdotto);
+			this.prodottoService.modificaProdotto(prodotto,prodottoForm);
+			this.imageService.newImagesProd(file, prodotto);
+			this.prodottoService.saveProdotto(prodotto);
+			return "redirect:/guest/prodotto/"+ idProdotto;
+		}
+		
+		else {
+			return "admin/formModificaProdotto.html"; 
+		}
 	}
 
 	@GetMapping("/guest/prodotto/{idProdotto}")
