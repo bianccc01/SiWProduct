@@ -1,5 +1,7 @@
 package it.uniroma3.siw.controller;
 
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,6 +9,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+
 import it.uniroma3.siw.model.Fornitore;
 import it.uniroma3.siw.model.Prodotto;
 import it.uniroma3.siw.service.FornitoreService;
@@ -40,8 +45,24 @@ public class FornitoreController {
 	public String removeFornitore(@PathVariable("fornitoreId") Long idFornitore, Model model) {
 		Fornitore fornitore = this.fornitoreService.findFornitoreById(idFornitore);
 		this.fornitoreService.removeFornitore(fornitore);
-		return "guest/fornitori.html";
-		
+		return "redirect:/admin/gestioneCatalogo";
+	}
+	
+
+	@GetMapping("admin/formModificaFornitore/{fornitoreId}")
+	public String formModificaFornitore(@PathVariable("fornitoreId") Long idFornitore, Model model) {
+		Fornitore fornitore = this.fornitoreService.findFornitoreById(idFornitore);
+		model.addAttribute("fornitore",fornitore);
+		return "admin/formModificaFornitore.html";
+	}
+	
+	@PostMapping("/admin/editFornitore/{idFornitore}")
+	public String editProdotto(@ModelAttribute("fornitore") Fornitore fornitoreForm, @PathVariable("idFornitore") Long idFornitore, 
+			Model model){
+		Fornitore fornitore = this.fornitoreService.findFornitoreById(idFornitore);
+		this.fornitoreService.modificaFornitore(fornitore,fornitoreForm);
+		this.fornitoreService.saveFornitore(fornitore);
+		return "redirect:/admin/gestioneCatalogo";
 	}
 	
 	

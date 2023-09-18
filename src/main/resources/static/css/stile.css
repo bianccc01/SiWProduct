@@ -274,8 +274,8 @@ border:solid;
 
 .log div {
   position:relative;
-	right:52em;
-	top:50%;
+	right:90%;
+	top:60%;
   text-align:center;
   color:black;
   padding: 6px;
@@ -351,7 +351,7 @@ border:solid;
 	background-color:limegreen;
 }
 
-.prodotto{
+.prodotto {
   position:relative;
   width: 100px;
   height: 100px;
@@ -361,19 +361,26 @@ border:solid;
   left:15px;
 }
 
-.prodotto a{
-  position:relative;
-  left:5px;
-	color:black;
-	font-size:20px;
-}
-
-.prodotto img{
+.prodotto img {
   width:100%;
   height: 100%;
   border-radius: 50%;
   object-fit: contain;
 }
+
+.prodotto div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.prodotto a {
+	position:relative;
+	color:black;
+	font-size:20px;
+}
+
 
 
 
@@ -537,4 +544,12 @@ border:solid;
 	right:35%;
   font-size: 40px;
   text-align:center;
+}
+
+.listaFornitori{
+	position:relative;
+	left:40%;
+	top:20%;
+	font-size:25px;
+	max-width: 50%;
 }

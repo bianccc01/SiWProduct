@@ -43,7 +43,15 @@ public class FornitoreService {
 			this.prodottoRepository.save(p);
 		}
 		
-
+		this.fornitoreRepository.delete(fornitore);
+	}
+	
+	
+	@Transactional
+	public void modificaFornitore(Fornitore fornitore, Fornitore f) {
+		fornitore.setNome(f.getNome());
+		fornitore.setIndirizzo(f.getIndirizzo());
+		fornitore.setEmail(f.getEmail());
 	}
 	
 	@Transactional

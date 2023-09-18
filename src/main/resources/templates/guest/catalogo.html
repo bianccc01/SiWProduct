@@ -55,16 +55,21 @@
         
          <div th:each="prodotto : ${prodotti}">
            
-           <div class="prodotto" th:if="${prodotto.image == null || prodotto.getDataImage() == null}">
+       <div class="prodotto" th:if="${prodotto.image == null || prodotto.getDataImage() == null}">
     <img src="/images/SiwPLogo.png" />
-    <a th:text="${prodotto.nome}" th:href="@{'/guest/prodotto/' + ${prodotto.id}}">Prodotto</a>
+    <div>
+        <a th:text="${prodotto.nome}" th:href="@{'/guest/prodotto/' + ${prodotto.id}}">Prodotto</a>
+    </div>
 </div>
+
         
        
         
          <div class="prodotto" th:if="${prodotto.image != null && prodotto.getDataImage() != null}">
              <img th:src="@{'data:image/png;base64,' + ${prodotto.getDataImage()}}"/>
-    <a th:text="${prodotto.nome}" th:href="@{'/guest/prodotto/' + ${prodotto.id}}">Prodotto</a>
+      <div>
+        <a th:text="${prodotto.nome}" th:href="@{'/guest/prodotto/' + ${prodotto.id}}">Prodotto</a>
+    </div>
 </div>
            
         

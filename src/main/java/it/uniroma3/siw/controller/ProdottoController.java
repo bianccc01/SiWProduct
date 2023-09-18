@@ -30,16 +30,16 @@ public class ProdottoController {
 
 	@Autowired 
 	private ProdottoService prodottoService;
-	
+
 	@Autowired
 	private FornitoreService fornitoreService;
-	
+
 	@Autowired
 	private ImageService imageService;
-	
+
 	@Autowired
 	private CommentoService commentoService;
-	
+
 	@Autowired
 	private CredentialsService credentialsService;
 
@@ -53,61 +53,58 @@ public class ProdottoController {
 	public String newProdotto(@ModelAttribute("prodotto") Prodotto prodotto, @RequestParam("file") MultipartFile file, Model model) throws IOException{
 		this.imageService.newImagesProd(file, prodotto);
 		this.prodottoService.saveProdotto(prodotto);
-		model.addAttribute("prodotto",prodotto);
+		return "redirect:/admin/getListaFornitoriProdotto/" + prodotto.getId();
+	}
+
+	@GetMapping("/admin/getListaFornitoriProdotto/{idProdotto}")
+	public String getListaFornitoriProdotto(@PathVariable("idProdotto") Long idProdotto, Model model) {
+		Prodotto prodotto = this.prodottoService.findProdottoById(idProdotto);
 		model.addAttribute("fornitori",this.fornitoreService.getFornitoriDaAggiungere(prodotto));
+		model.addAttribute("prodotto",prodotto);
 		return "admin/listaFornitoriProdotto.html";
 	}
-	
+
+
 	@GetMapping("/admin/addFornitoreToProdotto/{idProdotto}/{idFornitore}")
 	public String addFornitoreProdotto(@PathVariable("idProdotto") Long idProdotto, @PathVariable ("idFornitore") Long idFornitore, Model model) {
 		Prodotto prodotto = this.prodottoService.findProdottoById(idProdotto);
 		Fornitore fornitore = this.fornitoreService.findFornitoreById(idFornitore);
 		this.prodottoService.addFornitore(prodotto,fornitore);
-		model.addAttribute("fornitori",this.fornitoreService.getFornitoriDaAggiungere(prodotto));
-		model.addAttribute("prodotto",prodotto);
-		return "admin/listaFornitoriProdotto.html";
+		return "redirect:/admin/getListaFornitoriProdotto/" + idProdotto;
 	}
-	
+
 	@GetMapping("/admin/rmvFornitoreToProdotto/{idProdotto}/{idFornitore}")
 	public String rmvFornitoreProdotto(@PathVariable("idProdotto") Long idProdotto, @PathVariable ("idFornitore") Long idFornitore, Model model) {
 		Prodotto prodotto = this.prodottoService.findProdottoById(idProdotto);
 		Fornitore fornitore = this.fornitoreService.findFornitoreById(idFornitore);
 		this.prodottoService.rmvFornitore(prodotto,fornitore);
-		model.addAttribute("fornitori",this.fornitoreService.getFornitoriDaAggiungere(prodotto));
-		model.addAttribute("prodotto",prodotto);
-		return "admin/listaFornitoriProdotto.html";
+		return "redirect:/admin/getListaFornitoriProdotto/" + idProdotto;
 	}
-	
-	
+
+
 	@GetMapping("/guest/prodotti")
 	public String getProdotti(Model model) {
 		model.addAttribute("prodotti",this.prodottoService.allProdotti());
 		return "guest/prodotti.html";
 	}
-	
+
 	@GetMapping("/admin/formModificaProdotto/{idProdotto}")
 	public String getFormModificaProdotto(@PathVariable("idProdotto") Long idProdotto, Model model) {
 		Prodotto prodotto = this.prodottoService.findProdottoById(idProdotto);
 		model.addAttribute("prodotto",prodotto);
 		return "admin/formModificaProdotto.html";
 	}
-	
+
 	@PostMapping("/admin/editProdotto/{idProdotto}")
 	public String editProdotto(@ModelAttribute("prodotto") Prodotto prodottoForm, @PathVariable("idProdotto") Long idProdotto, @RequestParam("file") MultipartFile file,
 			Model model) throws IOException {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Prodotto prodotto = this.prodottoService.findProdottoById(idProdotto);
 		this.prodottoService.modificaProdotto(prodotto,prodottoForm);
 		this.imageService.newImagesProd(file, prodotto);
 		this.prodottoService.saveProdotto(prodotto);
-		model.addAttribute("credentials",this.credentialsService.getCredentials(authentication));
-		model.addAttribute("commentoUtente",this.commentoService.getCommentoUtente(authentication, prodotto));
-		model.addAttribute("commenti",this.commentoService.getCommentiNotUtente(authentication, prodotto));
-		model.addAttribute("mediaVoto",this.prodottoService.getMediaVotiProdotto(idProdotto));
-		model.addAttribute("prodotto",prodotto);
-		return "guest/prodotto.html";
+		return "redirect:/guest/prodotto/"+ idProdotto;
 	}
-	
+
 	@GetMapping("/guest/prodotto/{idProdotto}")
 	public String getProdotto(@PathVariable("idProdotto") Long idProdotto,Model model) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -119,23 +116,18 @@ public class ProdottoController {
 		model.addAttribute("prodotto",prodotto);
 		return "guest/prodotto.html";
 	}
-	
-	@GetMapping("/guest/prodottiPerFornitore/{idFornitore}")
-	public String getProdottiFornitore(@PathVariable("idFornitore") Long idFornitore, Model model) {
-		model.addAttribute("prodotti",this.prodottoService.getProdottiFornitore(idFornitore));
-		return "guest/prodotti.html";
-	}
+
 
 
 	@GetMapping("/admin/rimuoviProdotto/{prodottoId}")
 	public String removeFornitore(@PathVariable("prodottoId") Long idProdotto, Model model) {
 		Prodotto prodotto = this.prodottoService.findProdottoById(idProdotto);
 		this.prodottoService.removeProdotto(prodotto);
-		model.addAttribute("Prodotti",this.prodottoService.allProdotti());
-		return "guest/prodotti.html";
+		return "redirect:/guest/catalogo/0";
 	}
-	
-	
+
+
+
 	@PostMapping("/guest/cercaProdotti")
 	public String cercaDestinazioni(Model model, @RequestParam String nome) {
 		model.addAttribute("prodotti", this.prodottoService.searchProdottiByNome(nome));

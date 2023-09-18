@@ -7,6 +7,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import it.uniroma3.siw.model.Fornitore;
 import it.uniroma3.siw.model.User;
 import it.uniroma3.siw.repository.UserRepository;
 
@@ -67,4 +68,11 @@ public class UserService {
     public User getUserAuthentication(Authentication authentication) {
     	return this.credentialsService.getUser(authentication);
     	}
+    
+    @Transactional
+	public void modificaUser(User user, User u) {
+		user.setName(u.getName());
+		user.setSurname(u.getSurname());
+		user.setEmail(u.getEmail());
+	}
 }

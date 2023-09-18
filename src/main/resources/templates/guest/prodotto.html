@@ -12,8 +12,12 @@
 <body>
 	<header>
     <div style="float:left"><a href="/">Home</a></div>
-    <div style="float:left; margin-left:30px;" th:if="${credentials != null && credentials.getRole() == 'ADMIN'}">
-		<a th:href="@{'/admin/formModificaProdotto/' + ${prodotto.id}}">Modifica Prodotto</a></div>
+    <div th:if="${credentials != null && credentials.getRole() == 'ADMIN'}">
+		<a style="float:left; margin-left:30px;" th:href="@{'/admin/formModificaProdotto/' + ${prodotto.id}}">Modifica Prodotto</a>
+		<a style="float:left; margin-left:30px;" th:href="@{'/admin/getListaFornitoriProdotto/' + ${prodotto.id}}">Aggiungi/Rimuovi fornitori</a>
+		<a style="float:left; margin-left:30px; font-weight: bold;"
+		th:href="@{'/admin/rimuoviProdotto/' + ${prodotto.id}}">Elimina Prodotto</a>
+		</div>
     <div th:if="${#request.userPrincipal}">
 		<span style ="position: absolute;" class="nomeUtenteLoggato" th:text="${#request.userPrincipal.principal.username}"></span>
     		<a href="/logout">Logout</a>

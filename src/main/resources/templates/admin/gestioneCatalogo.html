@@ -32,8 +32,11 @@
         <h2>Fornitori</h2>
         <div th:if="${fornitori.size() > 0}">
             <ul th:each="fornitore : ${fornitori}">
-                <li th:text="${fornitore.nome}"></li>
-            </ul>
+				<li>
+            <span th:text="${fornitore.nome}"></span>
+            <span><a th:href="@{'/admin/rimuoviFornitore/' + ${fornitore.id}}">Elimina</a></span>
+            <span><a th:href="@{'/admin/formModificaFornitore/' + ${fornitore.id}}">Modifica</a></span>
+        </li>
         
         </div>
         <p th:unless="${fornitori.size() > 0}">Nessun fornitore presente</p>
@@ -44,7 +47,7 @@
         <h2>Prodotti</h2>
         <div th:if="${prodotti.size() > 0}">
             <ul th:each="prodotto : ${prodotti}">
-                <li th:text="${prodotto.nome}"></li>
+                <li><a th:href="@{'/guest/prodotto/' + ${prodotto.id}}" th:text="${prodotto.nome}"></a></li>
             </ul>
         </div>
         <p th:unless="${prodotti.size() > 0}">Nessun prodotto presente</p>
